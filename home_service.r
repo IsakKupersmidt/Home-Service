@@ -1,6 +1,6 @@
 ############################################################
 ### Packages and settings
-############################################################
+###########################################################
 
 setwd("/home/isak/Dropbox/SSE/Research/Health care model/Home service/R")
 #setwd("C:/Users/is.4145/Dropbox/Learning-in-IO")
