@@ -1,5 +1,5 @@
 # Home-Service
-This repository contains the code and data for my research on swedish elderly care.
+This repository contains the code and data for my research on Swedish elderly care.
 
 ## home_service.r
 R file that reads the data files and performes the regressions
