@@ -4,10 +4,10 @@
 R file that reads the data files and performes the regressions
 
 ## main_data.csv
-CSV file containing data on in-home services in Swedens municipalities in 2017. The data is gathered from Kolada, an open data base procived by the Swedish government and the Swedish Association of Local Authorities and Regions. The data set is available on  (https://www.kolada.se/) (Swedish).
+CSV file containing data on in-home services in Swedens municipalities in 2017. The data is gathered from Kolada, an open data base procived by the Swedish government and the Swedish Association of Local Authorities and Regions. The data set is available at https://www.kolada.se/ (Swedish).
 
 ## panel_data_2014_2017.csv
-A CSV file containing panel data on in-home services during the years 2014-2017.
+A CSV file containing panel data on in-home services during the years 2014-2017, also available at https://www.kolada.se/.
 
 
 ## political_majority.csv
