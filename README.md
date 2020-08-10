@@ -1,4 +1,5 @@
 # Home-Service
+This repository contains the code and data for my research on swedish elderly care.
 
 ## home_service.r
 R file that reads the data files and performes the regressions
@@ -11,5 +12,5 @@ A CSV file containing panel data on in-home services during the years 2014-2017,
 
 
 ## political_majority.csv
-A CSV file containing data on the political majority in Swedens 290 municipalities. The data set is supplied by the Swedish Association of Local Authorities and Regions. The data set, as well as furher information on definitions, can be found at (https://skr.se/demokratiledningstyrning/valmaktfordelning/valresultatstyren.4696.html).
+A CSV file containing data on the political majority in Swedens 290 municipalities. The data set is supplied by the Swedish Association of Local Authorities and Regions. The data set, as well as furher information on definitions, can be found at https://skr.se/demokratiledningstyrning/valmaktfordelning/valresultatstyren.4696.html.
 
