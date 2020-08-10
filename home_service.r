@@ -2,9 +2,7 @@
 ### Packages and settings
 ###########################################################
 
-setwd("/home/isak/Dropbox/SSE/Research/Health care model/Home service/R")
-#setwd("C:/Users/is.4145/Dropbox/Learning-in-IO")
-#setwd("~/Dropbox/Learning-in-IO")
+setwd("../Home service/R")
 
 library(stargazer)
 library("plm")
@@ -19,11 +17,11 @@ theme_set(theme_bw())
 ### Data
 ############################################################
 
-data_all=read.csv("../data/input data old.csv", encoding = "UTF-8")
+data_all=read.csv("../data/main_data.csv", encoding = "UTF-8")
 
-political=read.csv("../data/political old.csv", encoding = "UTF-8")
+political=read.csv("../data/political_majority.csv", encoding = "UTF-8")
 
-data_panel <- read.csv("../data/Panel data 2014 to 2017 keep.csv", encoding = "UTF-8")
+data_panel <- read.csv("../data/panel_data_2014_2017.csv", encoding = "UTF-8")
 
 ############################################################
 ### Data treatment and illustration
@@ -96,25 +94,6 @@ fit_demographic <- lm(hours ~ public_providers + cost_hour + old + population_lo
 
 fit_combo <- lm(hours ~ public_providers + cost_hour + town + countryside + old + population_log + density_log + care_recievers + leftwing + rightwing, data=data)
 
-### Write regression table to file
-# x=stargazer(fit, fit_demographic, fit_structure, fit_combo, title="Regression", label="reg_tab2")
-# x[3]="\\begin{table}[H] \\label{reg_tab2}\\centering "
-# x[4]=x[5]
-# x[5]=x[6]
-# x[6]=" \\small\\makebox[\\linewidth]{"
-# x[length(x)-1]="\\end{tabular}}"
-# x=gsub("cost[\\]_hour", "Cost per Hour", x)
-# x=gsub("public[\\]_providers", "Share of Public Providers", x)
-# x=gsub("old", "Old", x)
-# x=gsub("population[\\]_log", "Population (log)", x)
-# x=gsub("care[\\]_recievers", "Share of Care Recievers", x)
-# x=gsub("town", "Town", x)
-# x=gsub("countryside", "Countryside", x)
-# x=gsub("density[\\]_log", "Population Dencity (log)", x)
-# x=gsub("rightwing", "Right-wing", x)
-# x=gsub("leftwing", "Left-wing", x)
-# write(x,file="../tables/regression_table2.txt")
-
 reg_tab2 = stargazer(fit, fit_demographic, fit_structure, fit_combo,
                      label = "reg_tab2",
                      table.placement = "H",
@@ -136,11 +115,6 @@ reg_tab2 = stargazer(fit, fit_demographic, fit_structure, fit_combo,
                         "(Constant)"),
                       out = "../tables/regression_table2.tex")
 
-#fit2 <- lm(hours ~ public_providers + cost2, data=data2)
-
-coefficients(fit_combo)
-summary(fit_combo)
-
 ### Plot the data
 
 jpeg('../images/regression_diagsnostics_combo.jpg', width=1200, height=1200, res=150)
@@ -152,23 +126,6 @@ jpeg('../images/regression_diagsnostics.jpg', width=1200, height=1200, res=150)
 layout(matrix(c(1,2,3,4),2,2))
 plot(fit)
 dev.off()
-# 
-# fit1=lm(hours~cost_hour,data=data)
-# fit2=lm(hours~public_providers,data=data)
-# fit3=lm(cost_hour~public_providers,data=data)
-# 
-# jpeg('../images/variable_plots.jpg', width=900, height=400, res = 120)
-# layout(matrix(c(1,2,3),1,3))
-# plot(data$cost_hour,data$hours, xlab="Cost per hour", ylab="Hours provided")
-# abline(fit1, col="red")
-# plot(data$public_providers,data$hours, xlab="Share public providers", ylab="Hours provided")
-# abline(fit2, col="red")
-# plot(data$public_providers,data$cost_hour, xlab="Share public providers", ylab="Cost per hour")
-# abline(fit3, col="red")
-#scatter.smooth(x=data$cost_hour, y=data$hours, main="Quantity and cost/hour")
-#scatter.smooth(x=data$public_providers, y=data$hours, main="Quantity and public share")
-#scatter.smooth(x=data$public_providers, y=data$cost_hour, main="Public share and cost/hour")
-#dev.off()
 
 plot1 = ggplot(data,aes(cost_hour,hours)) +
   geom_smooth(method='lm', se = F, aes(color='red')) +
@@ -194,30 +151,6 @@ plot3 = ggplot(data,aes(public_providers,cost_hour)) +
 jpeg('../images/variable_plots.jpg', width=900, height=350, res = 120)
 ggarrange(plot1, plot2, plot3, nrow = 1)
 dev.off()
-
-# jpeg('../images/variable_plots_raw.jpg', width=900, height=400, res = 120)
-# layout(matrix(c(1,2,3),1,3))
-# plot(data_all$cost_hour,data_all$hours, xlab="Cost per hour", ylab="Hours provided")
-# abline(fit1, col="red")
-# plot(data_all$public_providers,data_all$hours, xlab="Share public providers", ylab="Hours provided")
-# abline(fit2, col="red")
-# plot(data_all$public_providers,data_all$cost_hour, xlab="Share public providers", ylab="Cost per hour")
-# abline(fit3, col="red")
-# #scatter.smooth(x=data$cost_hour, y=data$hours, main="Quantity and cost/hour")
-# #scatter.smooth(x=data$public_providers, y=data$hours, main="Quantity and public share")
-# #scatter.smooth(x=data$public_providers, y=data$cost_hour, main="Public share and cost/hour")
-# dev.off()
-
-
-# x=stargazer(fit1, fit2, fit, title="Regression", label="reg_tab1")
-# x[3]="\\begin{table}[H] \\centering "
-# x[4]=x[5]
-# x[5]=x[6]
-# x[6]=" \\makebox[\\linewidth]{"
-# x[length(x)-1]="\\end{tabular}}"
-# x=gsub("cost[\\]_hour", "Cost per Hour", x)
-# x=gsub("public[\\]_providers", "Share of Public Providers", x)
-# write(x,file="../tables/regression_table1.txt")
 
 reg_tab1 = stargazer(fit1, fit2, fit,
                      out = "../tables/regression_table1.tex",
@@ -327,25 +260,6 @@ plot(data_panel$public_providers,data_panel$hours, xlab="Share public providers"
 abline(fit2, col="red")
 plot(data_panel$public_providers,log(data_panel$cost_hour), xlab="Share public providers", ylab="Cost per hour")
 
-# x=stargazer(lmp, lmp_c, rdp, title="Panel Regression", label="reg_tab3")
-# x[3]="\\begin{table}[H] \\label{reg_tab2}\\centering "
-# x[4]=x[5]
-# x[5]=x[6]
-# x[6]=" \\small\\makebox[\\linewidth]{"
-# x[length(x)-1]="\\end{tabular}}"
-# x=gsub("cost[\\]_hour", "Cost per Hour", x)
-# x=gsub("public[\\]_providers", "Share of Public Providers", x)
-# x=gsub("old", "Old", x)
-# x=gsub("population[\\]_log", "Population (log)", x)
-# x=gsub("care[\\]_recievers", "Share of Care Recievers", x)
-# x=gsub("town", "Town", x)
-# x=gsub("countryside", "Countryside", x)
-# x=gsub("density[\\]_log", "Population Dencity (log)", x)
-# x=gsub("rightwing", "Right-wing", x)
-# x=gsub("leftwing", "Left-wing", x)
-# write(x,file="../tables/regression_table3.txt")
-
-
 reg_tab3 = stargazer(lmp, lmp_c, rdp, rdp_c, 
                      title="Panel Regression", 
                      label="reg_tab3",
@@ -375,10 +289,3 @@ reg_tab3 = stargazer(lmp, lmp_c, rdp, rdp_c,
                        "(Constant)"),
                      out = "../tables/regression_table3.tex"
 )
-
-# cost_per_hour = data.frame
-hours ~ public_providers + cost_hour + town + countryside + old + population_log + density_log + care_recievers + leftwing + rightwing
-ggplot() + 
-  geom_histogram(data=data_all, aes(x=cost_hour, y=..density..), alpha=.5, position="identity", fill="red", bins=20) + 
-  geom_histogram(data=data, aes(x=cost_hour, y=..density..), alpha=.5, position="identity", fill="blue", bins=20) +
-  xlim(0,1500)
